@@ -71,7 +71,6 @@ if(isset($_POST['desc']) && isset($_POST['from']) && isset($_POST['titl1']) ){
  
 if (isset($_POST['group1']) && $_POST['group1']=='prior') {
 	// put item on top	
-	echo "empty";
 	$lines=file('flashmo_251_item_list.xml');
 	$fp = fopen('flashmo_251_item_list_end.xml', 'w');
 	foreach ($lines as $line_num => $line) {
@@ -113,7 +112,6 @@ else {
 	// 1. cut the last line from existing xml: </photos>
 	// load the data and delete the line from the array 
 	//echo($myItem);
-	echo "else";
 	$lines = file('flashmo_251_item_list.xml'); 
 	$last = sizeof($lines) - 1 ; 
 	unset($lines[$last]); 
