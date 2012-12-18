@@ -115,32 +115,7 @@
 				});			
 				
 			});
-			
-			var editorParams = {
-				id: 'tinyeditor',
-				width: 584,
-				height: 175,
-				cssclass: 'tinyeditor',
-				controlclass: 'tinyeditor-control',
-				rowclass: 'tinyeditor-header',
-				dividerclass: 'tinyeditor-divider',
-				controls: ['bold', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript', '|',
-				'orderedlist', 'unorderedlist', '|', 'outdent', 'indent', '|', 'leftalign',
-				'centeralign', 'rightalign', 'blockjustify', '|', 'unformat', '|', 'undo', 'redo', 'n',
-				'font', 'size', 'style', '|', 'image', 'hr', 'link', 'unlink', '|', 'print'],
-				footer: true,
-				fonts: ['Verdana','Arial','Georgia','Trebuchet MS'],
-				xhtml: true,
-				css:'body{background-color:#ccc}',
-				cssfile: 'tinyeditor/tinyeditor.css',
-				bodyid: 'editor',
-				footerclass: 'tinyeditor-footer',
-				toggle: {text: 'source', activetext: 'wysiwyg', cssclass: 'toggle'},
-				resize: {cssclass: 'resize'}
-			};
-				new TINY.editor.edit('editor', editorParams);
-				new TINY.editor.edit('editor1', editorParams);
-				editor1.id = 'tinyeditor1';
+	
 		</script>
 		
         <style type="text/css">
@@ -286,7 +261,37 @@
   </tr>
 </table>
 <p>&nbsp;</p>
+</body>
 
-  </body>
+  <script>
+  	// tiny editors must be declared after the declaration of the textareas and their ids
+  	var editorParams = {
+				id: 'tinyeditor',
+				width: 584,
+				height: 175,
+				cssclass: 'tinyeditor',
+				controlclass: 'tinyeditor-control',
+				rowclass: 'tinyeditor-header',
+				dividerclass: 'tinyeditor-divider',
+				controls: ['bold', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript', '|',
+				'orderedlist', 'unorderedlist', '|', 'outdent', 'indent', '|', 'leftalign',
+				'centeralign', 'rightalign', 'blockjustify', '|', 'unformat', '|', 'undo', 'redo', 'n',
+				'font', 'size', 'style', '|', 'image', 'hr', 'link', 'unlink', '|', 'print'],
+				footer: true,
+				fonts: ['Verdana','Arial','Georgia','Trebuchet MS'],
+				xhtml: true,
+				css:'body{background-color:#ccc}',
+				cssfile: 'tinyeditor/tinyeditor.css',
+				//bodyid: 'editor',
+				footerclass: 'tinyeditor-footer',
+				toggle: {text: 'source', activetext: 'wysiwyg', cssclass: 'toggle'},
+				resize: {cssclass: 'resize'}
+		};
+		//copy value of editorParams
+		var editor1Params= jQuery.extend(true, {}, editorParams);
+		editor1Params.id='tinyeditor1';
+		var editor = new TINY.editor.edit('editor', editorParams);
+		var editor1=new TINY.editor.edit('editor1', editor1Params);
+  </script>
 </html>
 
