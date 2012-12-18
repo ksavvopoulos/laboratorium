@@ -22,9 +22,10 @@
 			$(function(){
 				// buttons
 				$( "input:submit, a, button", ".jqBTN" ).button();
+				//submits the url form
 				$( "#internal" ).click(function(){
 				var data_string = $('form#newurl').serialize();
-				if (oneurl.value.length>7){
+				if (oneurl.value.length>7 && onedesc.value.length>=1 && onedesc.value!='url description'){
 				
 					$.ajax({
 						type:"POST",
@@ -34,10 +35,12 @@
         					document.getElementById('hello').innerHTML=data
         				}
 					});
-				}else {
+				}else if (oneurl.value.length<=7){
 					alert("Url too short")
+				}else if (onedesc.value.length<1 || onedesc.value=='url description' ){
+					alert("Please give a description")
 				}
-				
+			
 				return false;
 				})
 				
