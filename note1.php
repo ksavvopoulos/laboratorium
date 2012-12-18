@@ -138,7 +138,9 @@
 				toggle: {text: 'source', activetext: 'wysiwyg', cssclass: 'toggle'},
 				resize: {cssclass: 'resize'}
 			};
-			
+				new TINY.editor.edit('editor', editorParams);
+				new TINY.editor.edit('editor1', editorParams);
+				editor1.id = 'tinyeditor1';
 		</script>
 		
         <style type="text/css">
@@ -201,9 +203,6 @@
         <tr>
           <td>Κείμενο<br/>
             <textarea name="desc" id='tinyeditor' cols="50" rows="3" width="100%"></textarea>
-            <script>
-		new TINY.editor.edit('editor', editorParams);
-	    </script>
            </td>
         </tr>
         <tr>
@@ -242,9 +241,6 @@
         <tr>
           <td>Κείμενο<br/>
             <textarea name="desc" id="tinyeditor1" cols="50" rows="3" width="100%"></textarea>
-               <script>
-			new TINY.editor.edit('editor1', editorParams);
-		</script>
             </td>
           </tr>
         <tr>
