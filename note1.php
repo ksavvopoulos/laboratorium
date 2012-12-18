@@ -232,7 +232,7 @@
         <tr>
           <td>
           Caption: <input name="titl1" type="text" value="" size="20" /><br/>
-          
+          </td>
           </tr>
         <tr>
           <td>Αποστολέας<br/>
@@ -248,6 +248,7 @@
             <div id="radio2" align="center">
             <input type="radio" id="radio3" name="group2" value="prior" checked="checked"/><label for="radio3">Μεγάλη</label> 
             <input name="group2" type="radio" id="radio4" value="notprior"  /><label for="radio4">Μικρή</label>  </div>          
+          </td>
           </tr>
         <tr>
           <td align="center" class="jqBTN"><input  name="Submit" type="submit" value="Ανέβασμα σημείωσης" id="post2" /></td>
