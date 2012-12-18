@@ -3,15 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>PanSoft Labs - Post a note</title>
+
 <link type="text/css" href="flashmo_251_style.css" rel="stylesheet" />
 <link type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 <link type="text/css" href="tinyeditor/tinyeditor.css"  rel="stylesheet">
-
 
 <script type="text/javascript" src="tinyeditor/tiny.editor.packed.js"></script>
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery.form.js"></script>
+
 <script type="text/javascript">
 			$(document).ready(function(){
 				$("#help").click(function(){
@@ -24,7 +25,6 @@
 				$( "#internal" ).click(function(){
 				var data_string = $('form#newurl').serialize();
 				if (oneurl.value.length>7){
-				
 				
 					$.ajax({
 						type:"POST",
@@ -54,13 +54,10 @@
         				}
 					});
 				
-				
-				
 				return false;
 				});
 				
 				//forma me eikona
-				
 				$( "#post2" ).click(function(){
 				editor1.post();
 				var formData = new FormData($('form#newpic')[0]);
@@ -75,24 +72,23 @@
             			}
             			return myXhr;
         				},
-						data:formData,
-						cache: false,
+					data:formData,
+					cache: false,
         				contentType: false,
         				processData: false,
 						success:    function(data) {
-        					alert(data);
-        				}
+        						alert(data);
+        					}
 					});
 				
 				$('form#newpic')[0].reset();
 				return false;
 				});
 				function progressHandlingFunction(e){
-			    if(e.lengthComputable){
-		        $('progress').attr({value:e.loaded,max:e.total});
+			 	   if(e.lengthComputable){
+		      			  $('progress').attr({value:e.loaded,max:e.total});
 				    }
 				}
-
 				
 				// links
 				$( "a", ".jqLinks" ).click(function() { return false; });
@@ -119,20 +115,45 @@
 				});			
 				
 			});
+			
+			var editorParams = {
+				id: 'tinyeditor',
+				width: 584,
+				height: 175,
+				cssclass: 'tinyeditor',
+				controlclass: 'tinyeditor-control',
+				rowclass: 'tinyeditor-header',
+				dividerclass: 'tinyeditor-divider',
+				controls: ['bold', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript', '|',
+				'orderedlist', 'unorderedlist', '|', 'outdent', 'indent', '|', 'leftalign',
+				'centeralign', 'rightalign', 'blockjustify', '|', 'unformat', '|', 'undo', 'redo', 'n',
+				'font', 'size', 'style', '|', 'image', 'hr', 'link', 'unlink', '|', 'print'],
+				footer: true,
+				fonts: ['Verdana','Arial','Georgia','Trebuchet MS'],
+				xhtml: true,
+				css:'body{background-color:#ccc}',
+				cssfile: 'tinyeditor/tinyeditor.css',
+				bodyid: 'editor',
+				footerclass: 'tinyeditor-footer',
+				toggle: {text: 'source', activetext: 'wysiwyg', cssclass: 'toggle'},
+				resize: {cssclass: 'resize'}
+			};
+			
 		</script>
+		
         <style type="text/css">
 			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px; color:white;}
 			.demoHeaders { margin-top: 2em; }
 			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative; color:white;}
 			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px; color:white;}
-   #dialog {color:white;}
+  			#dialog {color:white;}
 			ul#icons {margin: 0; padding: 0;}
 			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
 			ul#icons span.ui-icon {float: left; margin: 0 4px;}
 			a {
-	color:#FFFFFF;
-	font-size: 14px;
-}
+			color:#FFFFFF;
+			font-size: 14px;
+			}
 		</style>	
 </head>
 
@@ -181,29 +202,8 @@
           <td>Κείμενο<br/>
             <textarea name="desc" id='tinyeditor' cols="50" rows="3" width="100%"></textarea>
             <script>
-				new TINY.editor.edit('editor', {
-				id: 'tinyeditor',
-				width: 584,
-				height: 175,
-				cssclass: 'tinyeditor',
-				controlclass: 'tinyeditor-control',
-				rowclass: 'tinyeditor-header',
-				dividerclass: 'tinyeditor-divider',
-				controls: ['bold', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript', '|',
-				'orderedlist', 'unorderedlist', '|', 'outdent', 'indent', '|', 'leftalign',
-				'centeralign', 'rightalign', 'blockjustify', '|', 'unformat', '|', 'undo', 'redo', 'n',
-				'font', 'size', 'style', '|', 'image', 'hr', 'link', 'unlink', '|', 'print'],
-				footer: true,
-				fonts: ['Verdana','Arial','Georgia','Trebuchet MS'],
-				xhtml: true,
-				css:'body{background-color:#ccc}',
-				cssfile: 'tinyeditor/tinyeditor.css',
-				bodyid: 'editor',
-				footerclass: 'tinyeditor-footer',
-				toggle: {text: 'source', activetext: 'wysiwyg', cssclass: 'toggle'},
-				resize: {cssclass: 'resize'}
-				});
-			</script>
+		new TINY.editor.edit('editor', editorParams);
+	    </script>
            </td>
         </tr>
         <tr>
@@ -243,31 +243,8 @@
           <td>Κείμενο<br/>
             <textarea name="desc" id="tinyeditor1" cols="50" rows="3" width="100%"></textarea>
                <script>
-					new TINY.editor.edit('editor1', {
-					id: 'tinyeditor1',
-					width: 584,
-					height: 175,
-					cssclass: 'tinyeditor',
-					controlclass: 'tinyeditor-control',
-					rowclass: 'tinyeditor-header',
-					dividerclass: 'tinyeditor-divider',
-					controls: ['bold', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript', '|',
-					'orderedlist', 'unorderedlist', '|', 'outdent', 'indent', '|', 'leftalign',
-					'centeralign', 'rightalign', 'blockjustify', '|', 'unformat', '|', 'undo', 'redo', 'n',
-					'font', 'size', 'style', '|', 'image', 'hr', 'link', 'unlink', '|', 'print'],
-					footer: true,
-					fonts: ['Verdana','Arial','Georgia','Trebuchet MS'],
-					xhtml: true,
-					css:'body{background-color:#ccc}',
-					cssfile: 'tinyeditor/tinyeditor.css',
-					bodyid: 'editor',
-					footerclass: 'tinyeditor-footer',
-					toggle: {text: 'source', activetext: 'wysiwyg', cssclass: 'toggle'},
-					resize: {cssclass: 'resize'}
-					});
-			</script>
-            
-            
+			new TINY.editor.edit('editor1', editorParams);
+		</script>
             </td>
           </tr>
         <tr>
@@ -281,7 +258,6 @@
           </tr>
         </table>
     </form>
-
 
 	</p>
     </div>
