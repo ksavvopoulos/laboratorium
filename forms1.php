@@ -7,86 +7,80 @@
  define ("WIDTH","150"); 
  define ("HEIGHT","150"); 
 //This variable is used as a flag. The value is initialized with 0 (meaning no error  found)  
-//and it will be changed to 1 if an errro occures.  
+//and it will be changed to 1 if an error occures.  
 //If the error occures the file will not be uploaded.
- $errors=0;
- $copied=false;
-
-
-
+$errors=0;
+$copied=false;
 $xml = simplexml_load_file("flashmo_251_item_list.xml");
-
 $items=0;
+//
 foreach($xml->children() as $child){
   $items+=1;
 }
-
-
-
+//
 if (isset($_POST['group1']) && $_POST['group1']=='prior') {
 	$number="01";
 }
-else{
+else {
 	$number=strval($items);
 }
-
-if (isset($_POST['titl2']) && strlen($_POST['titl2'])>4){
+//
+if (isset($_POST['titl2']) && strlen($_POST['titl2'])>4) {
 	$desc_small=$_POST['titl2'];
 }
 else{
 	$desc_small="No Description";
 }
-
+//
 $tags=array('/style="\s*text-decoration: underline;"/',
-			'/style="\s*font-style: italic;"/',
-			'/style="\s*font-weight: bold;"/',
-			'/style="\s*text-decoration: line-through;"/',
-			'/style="\s*font-size: x-large;"/',
-			'/style="\s*font-size: large;"/',
-			'/style="\s*font-size: small;"/',
-			'/style="\s*font-size: medium;"/',
-			'/style="\s*font-size: xx-large;"/',
-			'/style="\s*font-family: Verdana;"/',
-			'/style="\s*font-family: Georgia;"/',
-			'/style="\s*font-family: Trebuchet MS;"/',
-			'/style="\s*font-family: Arial;"/');
+	'/style="\s*font-style: italic;"/',
+	'/style="\s*font-weight: bold;"/',
+	'/style="\s*text-decoration: line-through;"/',
+	'/style="\s*font-size: x-large;"/',
+	'/style="\s*font-size: large;"/',
+	'/style="\s*font-size: small;"/',
+	'/style="\s*font-size: medium;"/',
+	'/style="\s*font-size: xx-large;"/',
+	'/style="\s*font-family: Verdana;"/',
+	'/style="\s*font-family: Georgia;"/',
+	'/style="\s*font-family: Trebuchet MS;"/',
+	'/style="\s*font-family: Arial;"/');
+//
 $css_classes=array('class="underline"',
-					'class="italic"',
-					'class="bold"',
-					'class="line-through"',
-					'class="x-large"',
-					'class="large"',
-					'class="small"',
-					'class="medium"',
-					'class="xx-large"',
-					'class="Verdana"',
-					'class="Georgia"',
-					'class="Trebuchet"',
-					'class="Arial"');
-
+			'class="italic"',
+			'class="bold"',
+			'class="line-through"',
+			'class="x-large"',
+			'class="large"',
+			'class="small"',
+			'class="medium"',
+			'class="xx-large"',
+			'class="Verdana"',
+			'class="Georgia"',
+			'class="Trebuchet"',
+			'class="Arial"');
+//
 $description=$_POST['desc'];
 $description=stripslashes($description);
 $description= preg_replace($tags,$css_classes,$description);
-
-
 //checks if the form FOR A NOTE has been submitted
 if(isset($_POST['desc']) && isset($_POST['from']) && isset($_POST['titl1']) ){
 	$temp1 = $_POST['desc'];
 	$temp2 = $_POST['from'];
 	$temp3 = $_POST['titl1'];
-
+	//
 	$colors=array("0066CC","228844","262626","660022","AA6600","445511","115566");
 	$color = $colors[array_rand($colors)];
- 
+ 	//
  	$paddings=array("0","25","50");
  	$padding=$paddings[array_rand($paddings)];
- 	
+ 	//
  	$aligns=array('left','right','center');
  	$align=$aligns[array_rand($aligns)];
- 	
+ 	//
  	$lefts=array('0','1');
  	$left=$lefts[array_rand($lefts)];
- 	
+ 	//
  	$myItem = '<item>'.PHP_EOL.'<description bgcolor="#'.$color.'" padding="'.$padding.'"><![CDATA[<p class="white_text" align="'.$align.'">';
  	if ($left=='0'){
  		$myItem .= '<span class="title_large"> ' . $_POST['titl1'] . '</span> <span class="title_extra">'.$number.'</span></p>';
@@ -95,13 +89,12 @@ if(isset($_POST['desc']) && isset($_POST['from']) && isset($_POST['titl1']) ){
  		$myItem .= '<span class="title_extra">'.$number.'</span><span class="title_large"> ' . $_POST['titl1'] .'</span></p>';
  	}
 	$myItem .= '<p class="white_text" align="'.$align.'">'.$desc_small.'</p> ]]></description> '.PHP_EOL.'	<content bgcolor="#'.$color.'"><![CDATA[ <p class="white_text"><span class="title">';
-	$myItem .= $_POST['titl1'] . '</span>';
-	$myItem .= '<span class="subtitle"> ' . $_POST['from'] . '</span> ';
+	$myItem .= $_POST['titl1'] . '</span><br/>';
+	$myItem .= '<span class="subtitle"> ' . $_POST['from'] . '</span>>br/>';
 	$myItem .= '<p class="white_text" align="justify">' . $description . '</p>';
 	$myItem .= ']]></content>'.PHP_EOL.'</item>';
 }
- 
- 
+// 
 if (isset($_POST['group1']) && $_POST['group1']=='prior') {
 	// put item on top	
 	$lines=file('flashmo_251_item_list.xml');
@@ -142,7 +135,7 @@ if (isset($_POST['group1']) && $_POST['group1']=='prior') {
 } 
 else {
 	// put item on eof
-	// 1. cut the last line from existing xml: </photos>
+	// 1. cut the last line from existing xml: </items>
 	// load the data and delete the line from the array 
 	//echo($myItem);
 	$lines = file('flashmo_251_item_list.xml'); 
@@ -155,7 +148,6 @@ else {
 	fwrite($fp,$myItem ); 
 	fwrite($fp,PHP_EOL.PHP_EOL.'</items>' );
 	// 3. close file
-	fclose($fp); 
-			 
+	fclose($fp); 			 
 }
 ?>
