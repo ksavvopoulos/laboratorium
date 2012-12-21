@@ -109,9 +109,7 @@
 					}
 				});
 				//radio
-				$( "#radio" ).buttonset();
-				//radio
-				$( "#radio2" ).buttonset();
+				$(".radio").buttonset();
 				// Datepicker
 				$('#datepicker').datepicker({
 					inline: true
@@ -185,7 +183,7 @@
         </tr>
         <tr>
           <td>Προτεραιότητα <br/>
-            <div id="radio" align="center">
+            <div class="radio" align="center">
             <input type="radio" id="radio1" name="group1" value="prior" checked="checked" /><label for="radio1">Μεγάλη</label> 
             <input name="group1" type="radio" id="radio2" value="notprior" /><label for="radio2">Μικρή</label>  
             </div>          
@@ -223,7 +221,7 @@
           </tr>
         <tr>
           <td>Προτεραιότητα <br/>
-            <div id="radio2" align="center">
+            <div class="radio" align="center">
             <input type="radio" id="radio3" name="group2" value="prior" checked="checked"/><label for="radio3">Μεγάλη</label> 
             <input name="group2" type="radio" id="radio4" value="notprior"  /><label for="radio4">Μικρή</label>  </div>          
           </td>
