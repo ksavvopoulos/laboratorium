@@ -13,7 +13,9 @@ $errors=0;
 $copied=false;
 
 $allowedExts = array("jpg", "jpeg", "gif", "png");
+//get image extension.
 $extension = end(explode(".", $_FILES["image"]["name"]));
+
 if ((($_FILES["image"]["type"] == "image/gif")
 || ($_FILES["image"]["type"] == "image/jpeg")
 || ($_FILES["image"]["type"] == "image/png")
@@ -29,9 +31,9 @@ if ((($_FILES["image"]["type"] == "image/gif")
     	echo $newname;
     	$copied = copy($_FILES['image']['tmp_name'], $newname);
     	$filename="images/s_".$image_name;
-    	//$filename='images/'.$_FILES["image"]["name"];
-    	$copied = copy($_FILES['image']['tmp_name'],$filename);
     	make_thumb($newname,$filename,300,300);
+    	//deletes source image from image folder
+ 		unlink($newname);
     }
 }
 else{
@@ -124,25 +126,16 @@ else {
 	fclose($fp); 
 			 
 } 
-//This function reads the extension of the file. It is used to determine if the file is an image by checking the extension.
-function getExtension($str) {
-	$i = strrpos($str,".");
-    if (!$i) { return ""; }
-  	$l = strlen($str) - $i;
-    $ext = substr($str,$i+1,$l);
-    return $ext;
-}
 
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
 function make_thumb($img_name,$filename,$new_w,$new_h){
- 	//get image extension.
- 	$ext=getExtension($img_name);
+ 	global $extension;
  	//creates the new image using the appropriate function from gd library
- 	if(("jpg"==$ext) || ("jpeg"==$ext)){
+ 	if(("jpg"==$extension) || ("jpeg"==$extension)){
  		$src_img=imagecreatefromjpeg($img_name);
 	}
-  	if("png"==$ext){
+  	if("png"==$extension){
  		$src_img=imagecreatefrompng($img_name);
 	}
  	 	//gets the dimmensions of the image
@@ -174,14 +167,16 @@ function make_thumb($img_name,$filename,$new_w,$new_h){
  	imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y); 
 
  	// output the created image to the file. Now we will have the thumbnail into the file named by $filename
- 	if(!strcmp("png",$ext)){
+ 	if(!strcmp("png",$extension)){
  		imagepng($dst_img,$filename); 
  	}else{
  		imagejpeg($dst_img,$filename); 
 	}
-  	//destroys source and destination images. 
+  	//frees memory from source and destination images. 
  	imagedestroy($dst_img); 
  	imagedestroy($src_img); 
+ 	
+ 	
  }
 
 ?> 
