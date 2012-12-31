@@ -55,6 +55,9 @@ if(isset($_POST['desc']) && isset($_POST['from']) && isset($_POST['titl1']) ){
  
 $colors=array("0066CC","228844","262626","660022","AA6600","445511","115566");
 $color = $colors[array_rand($colors)];
+
+$description=$_POST['desc'];  
+$description=stripslashes($description);
   
 // arkoun gia na anebei to note opote ftiaxnw to string mou
 $myItem = '<item>'.PHP_EOL.'<description bgcolor="#666666" padding="0"><![CDATA[';
@@ -76,7 +79,7 @@ else if  (strlen($_POST['theurl']) > 7){
 	$myItem .= '<img src="' . $_POST['theurl'] . '" width="150" height="150" vspace="0" hspace="10" />';
 }
 $myItem .= '<span class="subtitle"> ' . $_POST['from'] . '</span> ';
-$myItem .= '<p class="white_text" align="justify">' . $_POST['desc'] . '</p>';
+$myItem .= '<p class="white_text" align="justify">' . $description . '</p>';
 $myItem .= ']]></content>'.PHP_EOL.'</item>'.PHP_EOL;
 		
 // update XML
