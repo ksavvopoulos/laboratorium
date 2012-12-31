@@ -47,18 +47,18 @@ $tags=array('/style="\s*text-decoration: underline;"/',
 	'/style="\s*font-family: Arial;"/');
 //
 $css_classes=array('class="underline"',
-			'class="italic"',
-			'class="bold"',
-			'class="line-through"',
-			'class="x-large"',
-			'class="large"',
-			'class="small"',
-			'class="medium"',
-			'class="xx-large"',
-			'class="Verdana"',
-			'class="Georgia"',
-			'class="Trebuchet"',
-			'class="Arial"');
+	'class="italic"',
+	'class="bold"',
+	'class="line-through"',
+	'class="x-large"',
+	'class="large"',
+	'class="small"',
+	'class="medium"',
+	'class="xx-large"',
+	'class="Verdana"',
+	'class="Georgia"',
+	'class="Trebuchet"',
+	'class="Arial"');
 //
 $description=$_POST['desc'];
 $description=stripslashes($description);
@@ -90,8 +90,8 @@ if(isset($_POST['desc']) && isset($_POST['from']) && isset($_POST['titl1']) ){
  	}
 	$myItem .= '<p class="white_text" align="'.$align.'">'.$desc_small.'</p> ]]></description> '.PHP_EOL.'	<content bgcolor="#'.$color.'"><![CDATA[ <p class="white_text"><span class="title">';
 	$myItem .= $_POST['titl1'] . '</span><br/>';
-	$myItem .= '<span class="subtitle"> ' . $_POST['from'] . '</span>>br/>';
-	$myItem .= '<p class="white_text" align="justify">' . $description . '</p>';
+	$myItem .= '<span class="subtitle"> ' . $_POST['from'] . '</span><br/>';
+	$myItem .= '<p class="white_text">' . $description . '</p>';
 	$myItem .= ']]></content>'.PHP_EOL.'</item>';
 }
 // 

@@ -14,7 +14,8 @@ $copied=false;
 
 $allowedExts = array("jpg", "jpeg", "gif", "png");
 //get image extension.
-$extension = end(explode(".", $_FILES["image"]["name"]));
+$name=explode(".", $_FILES["image"]["name"]);
+$extension = end($name);
 
 if ((($_FILES["image"]["type"] == "image/gif")
 || ($_FILES["image"]["type"] == "image/jpeg")
@@ -25,16 +26,23 @@ if ((($_FILES["image"]["type"] == "image/gif")
     	echo "Error: " . $_FILES["image"]["error"] . "<br>";
     }
   	else{
-    	echo "Your post was submitted!".$extension;
+    	echo "Your post was submitted!";
     	$image_name=time().'.'.$extension;
     	$newname="images/".$image_name;
-    	echo $newname;
     	$copied = copy($_FILES['image']['tmp_name'], $newname);
     	$filename="images/s_".$image_name;
     	make_thumb($newname,$filename,300,300);
     	//deletes source image from image folder
  		unlink($newname);
     }
+}
+else if  (isset($_POST['theurl']) && strlen($_POST['theurl']) > 7){
+	$name=explode(".", $_POST['theurl']);
+	$extension = end($name);
+	if (in_array($extension, $allowedExts)){
+		echo "Your post was submitted!";
+	}
+	else {echo "Invalid image"; }
 }
 else{
 	echo "Invalid image";
@@ -45,6 +53,8 @@ if(isset($_POST['desc']) && isset($_POST['from']) && isset($_POST['titl1']) ){
 	$temp3 = $_POST['titl1'];
 }
  
+$colors=array("0066CC","228844","262626","660022","AA6600","445511","115566");
+$color = $colors[array_rand($colors)];
   
 // arkoun gia na anebei to note opote ftiaxnw to string mou
 $myItem = '<item>'.PHP_EOL.'<description bgcolor="#666666" padding="0"><![CDATA[';
@@ -55,10 +65,10 @@ else if  (isset($_POST['theurl']) && strlen($_POST['theurl']) > 7){
 	$myItem .= '<img src="' . $_POST['theurl'] . '" width="300" height="155" vspace="0" hspace="0" />';
 }
 else {
-	$myItem .= '<span class="title_medium"> ' . $_POST['titl1'] . '</span> ';
+	$myItem .= '<span class="title_medium"> ' . $_POST['titl1'] . '</span>';
 }
-$myItem .= '<p>dummy</p> ]]></description> 	<content bgcolor="#FFFFFF"><![CDATA[ <span class="title">';
-$myItem .= $_POST['titl1'] . '</span>';
+$myItem .= '<p>dummy</p> ]]></description> 	<content bgcolor="#'.$color.'"><![CDATA[ <span class="title">';
+$myItem .= $_POST['titl1'] . '</span><br/>';
 if ($copied) {
 	$myItem .= '<img src="' . $filename . '" width="150" height="150" vspace="0" hspace="10" />';
 }
@@ -66,7 +76,7 @@ else if  (strlen($_POST['theurl']) > 7){
 	$myItem .= '<img src="' . $_POST['theurl'] . '" width="150" height="150" vspace="0" hspace="10" />';
 }
 $myItem .= '<span class="subtitle"> ' . $_POST['from'] . '</span> ';
-$myItem .= '<p align="justify">' . $_POST['desc'] . '</p>';
+$myItem .= '<p class="white_text" align="justify">' . $_POST['desc'] . '</p>';
 $myItem .= ']]></content>'.PHP_EOL.'</item>'.PHP_EOL;
 		
 // update XML

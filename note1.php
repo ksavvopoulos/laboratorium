@@ -14,7 +14,14 @@
 <script type="text/javascript" src="js/jquery.form.js"></script>
 
 <script type="text/javascript">
+			function emptyEditor(index){
+				var edem=window.document.getElementsByTagName("iframe")[index].contentDocument.body;
+				edem.innerHTML='';
+			}
+
+
 			$(document).ready(function(){
+				
 				$("#help").click(function(){
 					alert('Εδω σας μαλωνω προκαταβολικα μην ποσταρετε οτι να ναι');
 				});
@@ -24,73 +31,76 @@
 				$( "input:submit, a, button", ".jqBTN" ).button();
 				//submits the url form
 				$( "#internal" ).click(function(){
-				var data_string = $('form#newurl').serialize();
-				if (oneurl.value.length>7 && onedesc.value.length>=1 && onedesc.value!='url description'){
-				
-					$.ajax({
-						type:"POST",
-						url:"showurl.php",
-						data:data_string,
-						success:    function(data) {
-        					document.getElementById('hello').innerHTML=data
-        				}
-					});
-				}else if (oneurl.value.length<=7){
-					alert("Url too short")
-				}else if (onedesc.value.length<1 || onedesc.value=='url description' ){
-					alert("Please give a description")
-				}
+					var data_string = $('form#newurl').serialize();
+					if (oneurl.value.length>7 && onedesc.value.length>=1 && onedesc.value!='url description'){
+							$.ajax({
+							type:"POST",
+							url:"showurl.php",
+							data:data_string,
+							success:    function(data) {
+        				document.getElementById('hello').innerHTML=data}
+							});
+							//resets forrm
+							$('form#newurl')[0].reset();
+					}else if (oneurl.value.length<=7){
+							alert("Url too short")
+					}else if (onedesc.value.length<1 || onedesc.value=='url description' ){
+							alert("Please give a description")
+					}	
 			
-				return false;
+					return false;
 				})
 				
 				$( "#post1" ).click(function(){
-				editor.post();
-				var form1_string=$('form#newad').serialize();
-				//document.write(form1_string);
-				$.ajax({
+					editor.post();
+					var form1_string=$('form#newad').serialize();
+					$.ajax({
 						type:"POST",
 						url:"forms1.php",
 						data:form1_string,
 						success:    function(data) {
-        					alert(data);
+        					alert("Your post was submitted");
         				}
 					});
-				
-				return false;
+					$('form#newad')[0].reset();
+					//resets content of the editor
+					emptyEditor(0);
+					return false;
 				});
 				
-				//forma me eikona
+				//picture form
 				$( "#post2" ).click(function(){
-				editor1.post();
-				var formData = new FormData($('form#newpic')[0]);
-				//alert(formData);
-				$.ajax({
+					editor1.post();
+					var formData = new FormData($('form#newpic')[0]);
+					//alert(formData);
+					$.ajax({
 						type:"POST",
 						url:"forms2.php",
 						xhr: function() {  // custom xhr
-          				myXhr = $.ajaxSettings.xhr();
-            			if(myXhr.upload){ // check if upload property exists
-                		myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
-            			}
-            			return myXhr;
-        				},
-					data:formData,
-					cache: false,
-        				contentType: false,
-        				processData: false,
-						success:    function(data) {
-        						alert(data);
-        					}
+          		myXhr = $.ajaxSettings.xhr();
+            	if(myXhr.upload){ // check if upload property exists
+              	myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+            	}
+            	return myXhr;
+        		},
+						data:formData,
+						cache: false,
+        		contentType: false,
+        		processData: false,
+						success: function(data) {
+        			alert(data);
+        		}
 					});
 				
-				$('form#newpic')[0].reset();
-				return false;
+					$('form#newpic')[0].reset();
+					//resets content of the editor1
+					emptyEditor(1);
+					return false;
 				});
 				function progressHandlingFunction(e){
-			 	   if(e.lengthComputable){
-		      			  $('progress').attr({value:e.loaded,max:e.total});
-				    }
+			 		if(e.lengthComputable){
+		      	$('progress').attr({value:e.loaded,max:e.total});
+				  }
 				}
 				
 				// links
@@ -119,7 +129,7 @@
 	
 		</script>
 		
-        <style type="text/css">
+    <style type="text/css">
 			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px; color:white;}
 			.demoHeaders { margin-top: 2em; }
 			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative; color:white;}
